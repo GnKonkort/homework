@@ -1,0 +1,52 @@
+[DEBUG][7] Amount of rows:1 
+[DEBUG][4] Amount of rows:1 
+[DEBUG][9] Amount of rows:1 
+[DEBUG][3] Amount of rows:1 
+[DEBUG][2] Amount of rows:1 
+[DEBUG][8] Amount of rows:1 
+[DEBUG][6] Amount of rows:1 
+[DEBUG][5] Amount of rows:1 
+[DEBUG] Total amount of processes: 10
+[DEBUG] Total amount of rows: 1
+[DEBUG][0] Amount of rows:1 
+Initial matrix:
+[DEBUG][1] Amount of rows:1 
+5.000e+00 4.000e+00 3.000e+00 2.000e+00 1.000e+00 
+4.000e+00 4.000e+00 3.000e+00 2.000e+00 1.000e+00 
+3.000e+00 3.000e+00 3.000e+00 2.000e+00 1.000e+00 
+2.000e+00 2.000e+00 2.000e+00 2.000e+00 1.000e+00 
+1.000e+00 1.000e+00 1.000e+00 1.000e+00 1.000e+00 
+[0] displacement = 0 sendcounts = 9
+[1] displacement = 9 sendcounts = 0
+[2] displacement = 9 sendcounts = 0
+[4] displacement = 9 sendcounts = 0
+[5] displacement = 9 sendcounts = 0
+[8] displacement = 9 sendcounts = 0
+[6] displacement = 9 sendcounts = 0
+[3] displacement = 9 sendcounts = 0
+[9] displacement = 9 sendcounts = 0
+[7] displacement = 9 sendcounts = 0
+Initial matrix after solution:
+5.000e+00 4.000e+00 3.000e+00 2.000e+00 1.000e+00 
+4.000e+00 4.000e+00 3.000e+00 2.000e+00 1.000e+00 
+3.000e+00 3.000e+00 3.000e+00 2.000e+00 1.000e+00 
+2.000e+00 2.000e+00 2.000e+00 2.000e+00 1.000e+00 
+1.000e+00 1.000e+00 1.000e+00 1.000e+00 1.000e+00 
+Reverse matrix after solution:
+1.000e+00 0.000e+00 0.000e+00 0.000e+00 0.000e+00 
+0.000e+00 1.000e+00 0.000e+00 0.000e+00 0.000e+00 
+0.000e+00 0.000e+00 1.000e+00 0.000e+00 0.000e+00 
+0.000e+00 0.000e+00 0.000e+00 1.000e+00 0.000e+00 
+0.000e+00 0.000e+00 0.000e+00 0.000e+00 1.000e+00 
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[DEBUG] Residual = 1.400e+01
+[mpiexec@gnkonkort-EasyNote-TM85] Sending Ctrl-C to processes as requested
+[mpiexec@gnkonkort-EasyNote-TM85] Press Ctrl-C again to force abort
