@@ -3,6 +3,8 @@
 #define WINDOW_H
 
 #include <QtWidgets/QtWidgets>
+#include "besselaproximator.h"
+#include "newtonaproximator.h"
 
 class Window : public QWidget
 {
@@ -10,14 +12,16 @@ class Window : public QWidget
 
 private:
   int func_id;
-  int approx_id;
+  int mode_id;
   const char *f_name;
-  const char *approx_name;
+  const char *mode_name;
   double a;
   double b;
   int n;
   double (*f) (double);
-  int mistake_scale;
+  BesselAproximator bessel;
+  NewtonAproximator newton;
+  int mistake_amount;
 public:
   Window (QWidget *parent);
 
@@ -28,11 +32,14 @@ public:
 
 public slots:
   void change_func ();
-  void change_approx();
+  void change_mode();
   void double_n();
   void sub_n();
-  void add_mistake();
-  void sub_mistake();
+  void zoom_in();
+  void zoom_out();
+  void increase_error();
+  void decrease_error();
+
 protected:
   void paintEvent (QPaintEvent *event);
 };

@@ -25,6 +25,12 @@ double formula_4(int i, int j, int n){
 double formula_E(int i, int j, int n){
     return (double)(i==j);
 }
+double formula_0(int i, int j, int n){
+    (void)i;
+    (void)j;
+    (void)n;
+    return 0;
+}
 
 int get_max_rows(int n, int m, int p){
     int blocks = n / m + (n % m == 0 ? 0 : 1);
@@ -61,11 +67,13 @@ double parallel_matrix_norm(double* a,int k, int rows, int n){
         buf = 0;
         for(int j = 0; j < n; j++){
             buf += fabs(a[i*n + j]);
+            //rintf("[%d]fabs(a[%d*n + %d]) = %lf\n",k,i,j,fabs(a[i*n + j]));
         }
         if(buf > norm){
             norm = buf;
         }
     }
+    //printf("[DEBUG][%d] Norm = %lf\n", k, norm);
     MPI_Gather(&norm,1,MPI_DOUBLE,norms.get(),1,MPI_DOUBLE,0,MPI_COMM_WORLD);
     
     if(k == 0){

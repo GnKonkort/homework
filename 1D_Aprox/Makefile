@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = basic_graph1.0.0
-DISTDIR = /home/gnkonkort/Рабочий\ стол/Old_programs/1D_Aprox/.tmp/basic_graph1.0.0
+DISTDIR = /home/gnkonkort/Документы/pet_projects/graph_qt5/.tmp/basic_graph1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -53,12 +53,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		bessel_approximation.cpp \
-		multipl_nodes_aproximation.cpp \
+		besselaproximator.cpp \
+		newtonaproximator.cpp \
 		window.cpp moc_window.cpp
 OBJECTS       = main.o \
-		bessel_approximation.o \
-		multipl_nodes_aproximation.o \
+		besselaproximator.o \
+		newtonaproximator.o \
 		window.o \
 		moc_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -117,7 +117,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -137,10 +136,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		basic_graph.pro window.h \
-		bessel_approximation.h \
-		multipl_nodes_aproximation.h main.cpp \
-		bessel_approximation.cpp \
-		multipl_nodes_aproximation.cpp \
+		besselaproximator.h \
+		newtonaproximator.h main.cpp \
+		besselaproximator.cpp \
+		newtonaproximator.cpp \
 		window.cpp
 QMAKE_TARGET  = basic_graph
 DESTDIR       = 
@@ -209,7 +208,6 @@ Makefile: basic_graph.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -286,7 +284,6 @@ Makefile: basic_graph.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -321,8 +318,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents window.h bessel_approximation.h multipl_nodes_aproximation.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp bessel_approximation.cpp multipl_nodes_aproximation.cpp window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents window.h besselaproximator.h newtonaproximator.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp besselaproximator.cpp newtonaproximator.cpp window.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -358,9 +355,11 @@ compiler_moc_header_make_all: moc_window.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_window.cpp
 moc_window.cpp: window.h \
+		besselaproximator.h \
+		newtonaproximator.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/gnkonkort/Рабочий стол/Old_programs/1D_Aprox/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/gnkonkort/Рабочий стол/Old_programs/1D_Aprox' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include window.h -o moc_window.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/gnkonkort/Документы/pet_projects/graph_qt5/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/gnkonkort/Документы/pet_projects/graph_qt5 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include window.h -o moc_window.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -378,18 +377,20 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-main.o: main.cpp window.h
+main.o: main.cpp window.h \
+		besselaproximator.h \
+		newtonaproximator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-bessel_approximation.o: bessel_approximation.cpp bessel_approximation.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bessel_approximation.o bessel_approximation.cpp
+besselaproximator.o: besselaproximator.cpp besselaproximator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o besselaproximator.o besselaproximator.cpp
 
-multipl_nodes_aproximation.o: multipl_nodes_aproximation.cpp multipl_nodes_aproximation.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o multipl_nodes_aproximation.o multipl_nodes_aproximation.cpp
+newtonaproximator.o: newtonaproximator.cpp newtonaproximator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o newtonaproximator.o newtonaproximator.cpp
 
 window.o: window.cpp window.h \
-		multipl_nodes_aproximation.h \
-		bessel_approximation.h
+		besselaproximator.h \
+		newtonaproximator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o window.cpp
 
 moc_window.o: moc_window.cpp 

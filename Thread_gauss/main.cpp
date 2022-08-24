@@ -31,7 +31,14 @@ int main(int argc, char** argv){
             return -1;
         }
     }
-
+    if(n < 0 ||
+       m > n ||
+       p <= 0 ||
+       s > 4||
+       s < 0){
+        printf("Usage: %s n m p r s [filename]\n",argv[0]);
+        return -1;
+    }
     std::unique_ptr<double[]> A{new double[n*n]},B{new double[n*n]},C{new double[n*n]},backup_matrix{new double[n*n]},reverse_block_buffer{new double[m*m]};
     if(s != 0){
         for(int i = 0; i < n; i++){

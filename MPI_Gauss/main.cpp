@@ -51,7 +51,6 @@ int main(int argc, char** argv){
                             backup_matrix{new double[amount_of_rows_in_process * n * m]},
                             A_row_buff{new double[n*m]}, 
                             B_row_buff{new double[n*m]};
-    
     if(s != 0){
         if(s == 1){
             init_matrix(A.get(),n,m,p,k,&formula_1);
@@ -68,8 +67,9 @@ int main(int argc, char** argv){
             return -1;
         }
     }
-    memcpy(backup_matrix.get(),A.get(),amount_of_rows_in_process * m * n);
+    //memcpy(backup_matrix.get(),A.get(),8 * amount_of_rows_in_process * m * n);
     init_matrix(B.get(),n,m,p,k,&formula_E);
+    init_matrix(C.get(),n,m,p,k,&formula_0);
     if(k == 0){
         printf("Initial matrix:\n");
     }
@@ -78,8 +78,9 @@ int main(int argc, char** argv){
     MPI_Barrier(MPI_COMM_WORLD);
 
     memcpy(backup_matrix.get(),A.get(),amount_of_rows_in_process*n*m*8);
-    double err = parallel_matrix_norm(A.get(),k,amount_of_rows_in_process*m,n);
-    // printf("[DEBUG] Matrix norm = %.3e\n",err);
+    //printf("[DEBUG][%d] amount_of_rows = %d\n",k,amount_of_rows_in_process);
+    double err = parallel_matrix_norm(A.get(),k,get_rows_block(n,m,p,k)*m,n);
+    //printf("[DEBUG] Matrix norm = %.3e\n",err);
     double elapsed = MPI_Wtime();
     int status = solve(A.get(),B.get(),n,m,p,k,A_row_buff.get(),B_row_buff.get(),err);
     elapsed = MPI_Wtime() - elapsed;
@@ -87,19 +88,18 @@ int main(int argc, char** argv){
         printf("[DEBUG] Matrix is irreversable\n");
         return -1;
     }
-    // if(k == 0){
-    //     printf("Initial matrix after solution:\n");
-    // }
-    // MPI_Barrier(MPI_COMM_WORLD);
-    // print_matrix(A.get(),n,m,p,k,A_row_buff.get(),r);
-    // MPI_Barrier(MPI_COMM_WORLD);
-    // if(k == 0){
-    //     printf("Reverse matrix after solution:\n");
-    // }
-    // MPI_Barrier(MPI_COMM_WORLD);
-    // print_matrix(B.get(),n,m,p,k,A_row_buff.get(),r);
-    // MPI_Barrier(MPI_COMM_WORLD);
-
+    if(k == 0){
+        printf("Initial matrix after solution:\n");
+    }
+    MPI_Barrier(MPI_COMM_WORLD);
+    print_matrix(A.get(),n,m,p,k,A_row_buff.get(),r);
+    MPI_Barrier(MPI_COMM_WORLD);
+    if(k == 0){
+        printf("Reverse matrix after solution:\n");
+    }
+    MPI_Barrier(MPI_COMM_WORLD);
+    print_matrix(B.get(),n,m,p,k,A_row_buff.get(),r);
+    MPI_Barrier(MPI_COMM_WORLD);
     mpi_matrix_multiplication(B.get(),backup_matrix.get(),C.get(),n,m,p,k);
     if(k == 0){
         printf("Check matrix solution:\n");
@@ -108,7 +108,7 @@ int main(int argc, char** argv){
     print_matrix(C.get(),n,m,p,k,A_row_buff.get(),r);
     MPI_Barrier(MPI_COMM_WORLD);
     //printf("[DEBUG] Residual = %.3e\n",parallel_matrix_norm(C.get(),k,amount_of_rows_in_process*m,n));
-    double residual = parallel_matrix_norm(C.get(),k,amount_of_rows_in_process*m,n);
+    double residual = parallel_matrix_norm(C.get(),k,get_rows_block(n,m,p,k)*m,n);
     if(k == 0){
         printf("%s : residual = %e elapsed = %.2f for s = %d n = %d m = %d\n", argv[0], residual, elapsed, s, n, m);
     }

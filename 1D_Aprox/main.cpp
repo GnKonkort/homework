@@ -5,12 +5,11 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QMessageBox>
-#include <fenv.h>
+
 #include "window.h"
 
 int main (int argc, char *argv[])
 {
-  feenableexcept(FE_UNDERFLOW || FE_OVERFLOW || FE_DIVBYZERO || FE_INVALID);
   QApplication app (argc, argv);
 
   QMainWindow *window = new QMainWindow;
@@ -25,26 +24,36 @@ int main (int argc, char *argv[])
       return -1;
     }
 
-  action = tool_bar->addAction ("&Change function", graph_area, SLOT (change_func ()));
-  action->setShortcut (QString ("Ctrl+C"));
+  action = tool_bar->addAction ("(&0)Change function", graph_area, SLOT (change_func ()));
+  action->setShortcut (QString ("0"));
 
   action = tool_bar->addAction ("E&xit", window, SLOT (close ()));
   action->setShortcut (QString ("Ctrl+X"));
 
-  action = tool_bar->addAction ("&x2 points", graph_area, SLOT (double_n ()));
-  action->setShortcut (QString ("4"));
+  action = tool_bar->addAction("(&1) Change mode", graph_area, SLOT(change_mode ()));
+  action->setShortcut(QString("1"));
 
-  action = tool_bar->addAction ("&/2 points", graph_area, SLOT (sub_n ()));
-  action->setShortcut (QString ("5"));
+  action = tool_bar->addAction("(&2) Zoom in", graph_area, SLOT(zoom_in ()));
+  action->setShortcut(QString("2"));
 
-  action = tool_bar->addAction ("change aproximation", graph_area, SLOT (change_approx ()));
-  action->setShortcut (QString ("1"));
+  action = tool_bar->addAction("(&3) Zoom out", graph_area, SLOT(zoom_out ()));
+  action->setShortcut(QString("3"));
 
-  action = tool_bar->addAction ("Add mistake", graph_area, SLOT (add_mistake ()));
-  action->setShortcut (QString ("6"));
+  action = tool_bar->addAction("(&4) n*2", graph_area, SLOT(double_n()));
+  action->setShortcut(QString("4"));
 
-  action = tool_bar->addAction ("Sub mistake", graph_area, SLOT (sub_mistake ()));
-  action->setShortcut (QString ("7"));
+  action = tool_bar->addAction("(&5) n/2", graph_area, SLOT(sub_n ()));
+  action->setShortcut(QString("5"));
+
+  action = tool_bar->addAction("(&6) Increase error", graph_area, SLOT(increase_error ()));
+  action->setShortcut(QString("6"));
+
+  action = tool_bar->addAction("(&7) Decrease error", graph_area, SLOT(decrease_error ()));
+  action->setShortcut(QString("7"));
+
+
+
+
 
   tool_bar->setMaximumHeight (30);
 

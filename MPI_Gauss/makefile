@@ -1,4 +1,4 @@
-CFLAGS = -O0 -g -fsanitize=address
+CFLAGS = -O3
 a.out: libs/MPI_matrix.o libs/matrix.o main.cpp
 	mpic++ $(CFLAGS) libs/MPI_matrix.o libs/matrix.o main.cpp -o a.out
 libs/MPI_matrix.o: libs/MPI_matrix.cpp libs/matrix.o libs/MPI_matrix.h
